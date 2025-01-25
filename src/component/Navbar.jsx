@@ -51,7 +51,7 @@ const Navbar = () => {
     />
   </div>
   <div className="flex items-center gap-[24px]">
-    <Notification02Icon color='#5D5D5D' />
+    <Notification02Icon color='#5D5D5D' className='cursor-pointer' />
     <div className="flex max-sm:h-[40px] max-sm:w-[40px] h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-[18px] bg-[#454545]">
       <span className="text-[20px] font-[500] text-[#FFF]">A</span>
     </div>
