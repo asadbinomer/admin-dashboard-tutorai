@@ -59,15 +59,14 @@ const Teachers = () => {
         className="w-full p-5 flex gap-4 bg-[#FBFCFC] rounded-xl"
         variants={itemVariants}
       >
-        {["School", "Class", "Search Teacher"].map((label, index) => (
-          <div key={index} className="w-full flex flex-col gap-2 w-[405px]">
-            <span className="text-sm text-[#888888]">{label}</span>
-            <div className="px-3.5 py-3 w-full flex items-center justify-between text-[#888888] bg-[#fff] rounded-xl min-h-[48px]">
-              Cambridge International School
-              <ArrowDown01Icon/>
-            </div>
+        <div class="flex flex-col gap-2 w-full md:w-1/3"><p class="text-sm font-normal text-[#888888]">School</p><div class="relative"><select class="w-full px-3.5 py-3 text-sm font-normal text-[#888888] rounded-xl bg-white appearance-none focus:outline-none"><option value="">Cambridge International School</option><option value="Lahore Grammar School">Lahore Grammar School</option><option value="International School of Lahore">International School of Lahore</option><option value="Beaconhouse School System">Beaconhouse School System</option></select><div class="absolute right-4 top-3 text-gray-400 pointer-events-none"><ArrowDown01Icon/> </div></div></div>
+        <div class="flex flex-col gap-2 w-full md:w-1/3"><p class="text-sm font-normal text-[#888888]">Class</p><div class="relative"><select class="w-full px-3.5 py-3 text-sm font-normal text-[#888888] rounded-xl bg-white appearance-none focus:outline-none"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option></select><div class="absolute right-4 top-3 text-gray-400 pointer-events-none"><ArrowDown01Icon/> </div></div></div>
+        <div className="w-full flex flex-col gap-2 md:w-1/3">
+          <span className="text-sm text-[#888888]">Search Teacher</span>
+          <div className="px-3.5 py-3 w-full flex items-center justify-between text-[#888888] bg-[#fff] rounded-xl min-h-[48px]">
+            <input type="text" className="w-full bg-transparent focus:outline-none placeholder:text-[#888888] text-[#888888]" placeholder="Alex" name="" id="" />
           </div>
-        ))}
+        </div>
       </motion.div>
 
       <motion.div
