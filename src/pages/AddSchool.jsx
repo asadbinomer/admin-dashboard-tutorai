@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CharacterPhoneticIcon, Image01Icon, ImageAdd01Icon, ImageIcon } from "hugeicons-react";
+import { CharacterPhoneticIcon, Image01Icon, ImageAdd01Icon, ImageIcon, Tick01Icon } from "hugeicons-react";
 
 function AddSchool({toggleAddSchool}) {
   const [imagePreview, setImagePreview] = useState(null);
@@ -117,8 +117,8 @@ function AddSchool({toggleAddSchool}) {
             }}
             className="cursor-pointer px-4 py-3 flex items-center gap-1.5 text-sm text-white bg-[#0052CC] rounded-[10px]"
           >
-            <CharacterPhoneticIcon size="22px" />
-            Save School
+            <Tick01Icon size="22px" />
+            Save
           </motion.button>
         </motion.div>
       </div>
