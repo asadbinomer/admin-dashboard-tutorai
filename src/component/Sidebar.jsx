@@ -21,7 +21,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="sidebar min-w-[320px] sticky top-0 z-1 p-6 bg-[#fff] rounded-xl" style={{ height: `calc(100vh - 156px)` }}>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center gap-3">
           <NavLink  to="/" className={({ isActive }) => getSidebarItemClasses(isActive)} onClick={() => handleNavLinkClick('schools')}>
           {({ isActive }) => (
             <>
@@ -46,6 +46,7 @@ const Sidebar = () => {
             </>
           )}
           </NavLink>
+          <div className="min-w-[170px] max-w-[170px] h-[1px] bg-[#F6F6F6]"></div>
           <NavLink to="/allusers" className={({ isActive }) => getSidebarItemClasses(isActive)} onClick={() => handleNavLinkClick('allusers')}>
           {({ isActive }) => (
             <>
