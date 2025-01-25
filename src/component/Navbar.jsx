@@ -8,7 +8,7 @@ const Navbar = () => {
   className="flex items-center justify-between max-sm:p-[8px] sticky top-0 z-1 max-sm:gap-[12px] gap-[24px] rounded-[18px] bg-white p-[12px] mb-6"
   style={{ opacity: 1, transform: "none" }}
 >
-  <img src="/images/navlogo.svg" alt="" />
+  <img src="/images/navlogo.svg" className='slect-none' draggable={false} alt="" />
   <div
     className="flex items-center w-full gap-[10px] max-w-[500px] rounded-[12px] border-[1px] p-[14px]
     max-sm:p-[10px] max-sm:gap-[8px] 
