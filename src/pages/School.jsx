@@ -1,199 +1,170 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import AddSchool from './AddSchool.jsx'
+import SchoolDetailModel from './SchoolDetailModel.jsx'
+import { AddSquareIcon, ArrowRight01Icon } from 'hugeicons-react'
 
 const School = () => {
-
   const [showAddSchool, setShowAddSchool] = useState(false);
+  const [showSchoolDetailModel, setShowSchoolDetailModel] = useState(false);
 
   const toggleAddSchool = () => {
     setShowAddSchool(!showAddSchool);
   };
 
+  const toggleSchoolDetailModel = () => {
+    setShowSchoolDetailModel(!showSchoolDetailModel);
+  };
+
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    in: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.5,
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    },
+    out: { 
+      opacity: 0, 
+      y: -20,
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const cardVariants = {
+    initial: { opacity: 0, scale: 0.9 },
+    in: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        type: "spring",
+        stiffness: 300,
+        damping: 20
+      }
+    },
+    hover: { 
+      scale: 1.02,
+      transition: { 
+        type: "spring",
+        stiffness: 300
+      }
+    }
+  };
+
+  const schoolCards = [
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" },
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" },
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" },
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" },
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" },
+    { name: "Cambridge International (CIB)", teachers: 31, logo: "/images/cambridge.png" }
+  ];
+
   return (
     <>
-      <div className="w-full p-6 flex flex-col gap-6 relative overflow-hidden">
-        <img src="/images/school.png" className="absolute right-0 z-[-1] top-0 select-none" draggable={false} alt="" />
-        <div className="flex items-center justify-between w-full">
+    <div className="bg-white rounded-[18px] w-full h-full scrollbar">
+    <motion.div 
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        className="w-full p-6 flex flex-col gap-6 relative"
+      >
+      <motion.img
+        src="/images/school.png"
+        className="absolute -right-[80px] z-0 -top-[10px] select-none"
+        alt=""
+        draggable={false}
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 1 }}
+        initial={{ opacity: 0, x: 50, scale: 1 }}
+        animate={{ opacity: 1, x: 0 }}
+      />
+        <div className="flex items-center justify-between w-full z-10">
           <div className="flex flex-col gap-3">
             <h2 className="text-[24px] font-medium text-[#454545]">Schools</h2>
             <p className="text-[14px] text-[#888888]">Comprehensive List of Schools Enrolled in the website</p>
           </div>
-          <div className="w-fit px-4 py-3 flex cursor-pointer gap-1.5 bg-[#0052CC] text-[#E7E7E7] rounded-[10px]"  onClick={toggleAddSchool} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: "2.5deg" }} transition={{ ease: "easeInOut", duration: 0.1 }}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 8V16M16 12H8" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="white" stroke-width="1.2"/></svg> Add School</div>
+          <motion.div 
+            className="w-fit px-4 py-3 flex cursor-pointer gap-1.5 bg-[#0052CC] text-[#E7E7E7] rounded-[10px]"  
+            onClick={toggleAddSchool} 
+            whileHover={{ scale: 1.1 }} 
+            whileTap={{ scale: 0.9, rotate: "1.5deg" }} 
+            transition={{ ease: "easeInOut", duration: 0.1 }}
+          >
+            <AddSquareIcon/>
+            Add School
+          </motion.div>
         </div>
-        <div className="grid grid-cols-2 gap-6 justify-between">
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
+        <motion.div 
+          className="grid grid-cols-2 gap-6 justify-between"
+          variants={pageVariants}
+        >
+          {schoolCards.map((school, index) => (
+            <motion.div 
+              key={index}
+              variants={cardVariants}
+              whileHover="hover"
+              className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl cursor-pointer"
+              
+            >
+              <div className="w-full flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <img className="w-[46px] select-none" draggable={false} src={school.logo} alt="" />
+                  <h4 className="text-[18px] font-medium text-[#5D5D5D]">{school.name}</h4>
+                </div>
+                <motion.div  onClick={toggleSchoolDetailModel}
+                  className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  View More 
+                  <ArrowRight01Icon/>
+                </motion.div>
               </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
+              <div className="flex items-center gap-5">
+                {[1, 2, 3, 4].map((_, cardIndex) => (
+                  <motion.div 
+                    key={cardIndex}
+                    variants={cardVariants}
+                    className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl"
+                  >
+                    <h3 className="text-[24px] text-[#5D5D5D]">{school.teachers}</h3>
+                    <p className="text-sm text-[#888888]">Teachers</p>
+                  </motion.div>
+                ))}
               </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
-              </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
-              </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
-              </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
-              </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full p-5 flex flex-col gap-5 bg-[#FBFCFC] rounded-xl">
-            <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <img className="w-[46px]" src="/images/cambridge.png" alt="" />
-                <h4 className="text-[18px] font-medium text-[#5D5D5D]">Cambridge International (CIB)</h4>
-              </div>
-              <div className="w-fit px-4 py-3 flex items-center gap-1.5 text-sm text-[#6D6D6D] bg-white rounded-[10px] cursor-pointer">View More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none"><path d="M9.00005 6.5C9.00005 6.5 15 10.9189 15 12.5C15 14.0812 9 18.5 9 18.5" stroke="#5D5D5D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-              <div className="w-[133px] p-5 flex flex-col items-center text-center gap-1 bg-[#fff] rounded-xl">
-                <h3 className="text-[24px] text-[#5D5D5D]">31</h3>
-                <p className="text-sm text-[#888888]">Teachers</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {showAddSchool ? (
-        <div className="w-full h-full absolute top-0 left-0">
-          <AddSchool toggleAddSchool={toggleAddSchool} />
-        </div>
-        ) : (
-          <>
-          </>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showAddSchool && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-full absolute z-50 top-0 left-0"
+          >
+            <AddSchool toggleAddSchool={toggleAddSchool} />
+          </motion.div>
         )}
+        {showSchoolDetailModel && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-full absolute z-50 top-0 left-0"
+          >
+            <SchoolDetailModel toggleSchoolDetailModel={toggleSchoolDetailModel} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
     </>
   )
 }
