@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Router, Routes, Route, NavLink, BrowserRouter } from 'react-router-dom';
-import { SchoolIcon, TeacherIcon, StudentIcon, UserMultipleIcon } from 'hugeicons-react';
+import { SchoolIcon, TeacherIcon, StudentIcon, UserMultipleIcon, StudyLampIcon, ToolsIcon } from 'hugeicons-react';
 
 const Sidebar = () => {
 
@@ -23,6 +23,14 @@ const Sidebar = () => {
       <div className="sidebar min-w-[320px] sticky top-0 z-1 p-6 bg-[#fff] rounded-xl" style={{ height: `calc(100vh - 156px)` }}>
         <div className="flex flex-col items-center gap-3">
           <NavLink  to="/" className={({ isActive }) => getSidebarItemClasses(isActive)} onClick={() => handleNavLinkClick('schools')}>
+          {({ isActive }) => (
+            <>
+              <StudyLampIcon size={24} color={getIconColor(isActive)} variant={"stroke"} />
+              Dashboard
+            </>
+          )}
+          </NavLink>
+          <NavLink  to="/school" className={({ isActive }) => getSidebarItemClasses(isActive)} onClick={() => handleNavLinkClick('schools')}>
           {({ isActive }) => (
             <>
               <SchoolIcon size={24} color={getIconColor(isActive)} variant={"stroke"} />
@@ -52,6 +60,14 @@ const Sidebar = () => {
             <>
               <UserMultipleIcon size={24} color={getIconColor(isActive)} variant={"stroke"} />
               All Users
+            </>
+          )}
+          </NavLink>
+          <NavLink to="/alltools" className={({ isActive }) => getSidebarItemClasses(isActive)} onClick={() => handleNavLinkClick('allusers')}>
+          {({ isActive }) => (
+            <>
+              <ToolsIcon size={24} color={getIconColor(isActive)} variant={"stroke"} />
+              All Tools
             </>
           )}
           </NavLink>
